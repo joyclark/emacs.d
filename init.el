@@ -1,6 +1,8 @@
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
 
 (when (not package-archive-contents)
@@ -57,6 +59,14 @@
   (untabify (point-min) (point-max)))
 
 
+;; refactor
+(require 'clj-refactor)
+(add-hook 'clojure-mode-hook (lambda ()
+                               (clj-refactor-mode 1)
+                               (cljr-add-keybindings-with-prefix "s-r")
+                               ))                             
+
+
 (load-library "iso-insert")
 
 ;; US-Keyboard & Umlaute
@@ -70,9 +80,14 @@
 (define-key global-map (kbd "M-z") 'smex) ;; Because I trigger it accidently all the time
 (define-key global-map (kbd "s-3") 'smex) ;; eclipse style cmd-3 (MAC OS)
 (define-key global-map (kbd "s-1") 'dirtree) ;;
-(define-key global-map (kbd "s-f") 'iwb)
+(define-key global-map (kbd "s-F") 'iwb)
 
 (define-key global-map (kbd "C-x f") 'ido-find-file) ;; Because I trigger it accidently all the time
+
+(define-key projectile-mode-map [?\s-d] 'projectile-find-dir)
+(define-key projectile-mode-map [?\s-p] 'projectile-switch-project)
+(define-key projectile-mode-map [?\s-f] 'projectile-find-file)
+(define-key projectile-mode-map [?\s-g] 'projectile-grep)
 
 
 (set-face-attribute 'default nil :height 165)
@@ -80,6 +95,7 @@
 
 (require 'midje-mode)
 (add-hook 'clojure-mode-hook 'midje-mode)
+(add-hook 'clojure-mode-hook 'typed-clojure-mode)
 
 (nyan-mode)
  (require 'color-theme)
@@ -108,10 +124,21 @@
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 (yas-global-mode 1)
 
+
 (load-theme 'wombat)
 
 ;; prevent from infinite printing
 (setq cider-repl-print-length 100) 
+
+
+;; Smooth scrolling
+(setq scroll-step            1
+      scroll-conservatively  10000)
+
+;; Swap keybindings for send to repl and eval in buffer
+;; (define-key cider-mode-map (kbd "C-c M-p") 'cider-pprint-eval-last-sexp)
+;; (define-key cider-mode-map (kbd "C-c C-p") 'cider-insert-last-sexp-in-repl)
+ (define-key cider-mode-map (kbd "TAB") 'complete-symbol)
 
 
 (custom-set-variables
