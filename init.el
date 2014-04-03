@@ -140,6 +140,8 @@
 ;; (define-key cider-mode-map (kbd "C-c C-p") 'cider-insert-last-sexp-in-repl)
  (define-key cider-mode-map (kbd "TAB") 'complete-symbol)
 
+;; Shut up emacs!
+(setq visible-bell 1)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
