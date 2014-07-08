@@ -69,6 +69,7 @@
                                (cljr-add-keybindings-with-prefix "s-r")
                                ))                             
 
+(add-to-list 'auto-mode-alist '("\\.cljx\\'" . clojure-mode))
 
 (load-library "iso-insert")
 
