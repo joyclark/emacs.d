@@ -42,6 +42,9 @@
 ;; Load the provided Clojure start kit configurations
 (load (concat user-emacs-directory "clojure-starter-kit.el"))
 
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+(setq mouse-wheel-progressive-speed nil)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
