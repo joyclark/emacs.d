@@ -145,7 +145,9 @@
  (define-key cider-mode-map (kbd "TAB") 'complete-symbol)
 
 ;; Shut up emacs!
-(setq visible-bell 1)
+;;(setq visible-bell 1)
+(setq ring-bell-function 'ignore)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
