@@ -31,7 +31,8 @@
                       color-theme
                       color-theme-solarized
                       windmove
-                      yasnippet)
+                      yasnippet
+                      icomplete)
   "A list of packages to ensure are installed at launch.")
 
 ;; Automaticaly install any missing packages
@@ -70,6 +71,10 @@
                                ))                             
 
 (add-to-list 'auto-mode-alist '("\\.cljx\\'" . clojure-mode))
+
+(require 'icomplete)
+(add-hook 'cider-repl-mode-hook 'paredit-mode)
+(add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 
 (load-library "iso-insert")
 
