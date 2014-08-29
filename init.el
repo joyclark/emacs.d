@@ -136,9 +136,14 @@
 
 (load-theme 'wombat)
 
+
 ;; prevent from infinite printing
 (setq cider-repl-print-length 100) 
 
+
+;; Enable Winner Mode
+(when (fboundp 'winner-mode)
+      (winner-mode 1))
 
 ;; Smooth scrolling
 (setq scroll-step            1
