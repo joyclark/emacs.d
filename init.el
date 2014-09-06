@@ -31,8 +31,11 @@
                       color-theme
                       color-theme-solarized
                       windmove
+                      company
+                      company-cider
                       yasnippet
-                      icomplete)
+                      ;;icomplete
+                      )
   "A list of packages to ensure are installed at launch.")
 
 ;; Automaticaly install any missing packages
@@ -72,7 +75,8 @@
 
 (add-to-list 'auto-mode-alist '("\\.cljx\\'" . clojure-mode))
 
-(require 'icomplete)
+;(require 'icomplete)
+(add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
 (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 
@@ -107,9 +111,68 @@
 (add-hook 'clojure-mode-hook 'typed-clojure-mode)
 
 (nyan-mode)
- (require 'color-theme)
- (color-theme-initialize)
-(load-theme 'solarized-dark t)
+
+(setq-default mode-line-format
+  (list
+    ;; the buffer name; the file name as a tool tip
+    '(:eval (propertize "%b " 'face 'font-lock-keyword-face
+        'help-echo (buffer-file-name)))
+
+    ;; line and column
+    "(" ;; '%02' to set to 2 chars at least; prevents flickering
+      (propertize "%02l" 'face 'font-lock-type-face) ","
+      (propertize "%02c" 'face 'font-lock-type-face) 
+    ") "
+
+    ;; relative position, size of file
+    '(:eval (list (nyan-create))) 
+
+    ;; the current major mode for the buffer.
+    "["
+
+    '(:eval (propertize "%m" 'face 'font-lock-string-face
+              'help-echo buffer-file-coding-system))
+    "] "
+
+
+    "[" ;; insert vs overwrite mode, input-method in a tooltip
+    '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
+              'face 'font-lock-preprocessor-face
+              'help-echo (concat "Buffer is in "
+                           (if overwrite-mode "overwrite" "insert") " mode")))
+
+    ;; was this buffer modified since the last save?
+    '(:eval (when (buffer-modified-p)
+              (concat ","  (propertize "Mod"
+                             'face 'font-lock-warning-face
+                             'help-echo "Buffer has been modified"))))
+
+    ;; is this buffer read-only?
+    '(:eval (when buffer-read-only
+              (concat ","  (propertize "RO"
+                             'face 'font-lock-type-face
+                             'help-echo "Buffer is read-only"))))  
+    "] "
+
+    ;; add the time, with the date and the emacs uptime in the tooltip
+    '(:eval (propertize (format-time-string "%H:%M")
+              'help-echo
+              (concat (format-time-string "%c; ")
+                      (emacs-uptime "Uptime:%hh"))))
+    " --"
+    ;; i don't want to see minor-modes; but if you want, uncomment this:
+    ;; minor-mode-alist  ;; list of minor modes
+    "%-" ;; fill with '-'
+    ))
+
+
+
+
+
+
+(require 'color-theme)
+(color-theme-initialize)
+
  
 ; (color-theme-robin-hood)
 
@@ -152,7 +215,10 @@
 ;; Swap keybindings for send to repl and eval in buffer
 ;; (define-key cider-mode-map (kbd "C-c M-p") 'cider-pprint-eval-last-sexp)
 ;; (define-key cider-mode-map (kbd "C-c C-p") 'cider-insert-last-sexp-in-repl)
- (define-key cider-mode-map (kbd "TAB") 'complete-symbol)
+ ;(define-key cider-mode-map (kbd "TAB") 'complete-symbol)
+
+(define-key global-map (kbd "TAB") 'company-complete)
+
 
 ;; Shut up emacs!
 ;;(setq visible-bell 1)
@@ -164,4 +230,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "1f3304214265481c56341bcee387ef1abb684e4efbccebca0e120be7b1a13589" default))))
+ '(custom-safe-themes
+   (quote
+    ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" default))))
