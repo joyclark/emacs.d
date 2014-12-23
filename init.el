@@ -79,7 +79,12 @@
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
 (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 
+
 (load-library "iso-insert")
+
+(require 'key-chord)
+(key-chord-define-global "bb" 'switch-to-previous-buffer)
+(key-chord-mode +1)
 
 ;; US-Keyboard & Umlaute
 (define-key global-map (kbd "M-a") 'insert-a-umlaut) 
