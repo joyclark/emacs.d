@@ -10,5 +10,5 @@ I used a config originally created by Ryan Neufeld (https://gist.github.com/rkne
 - Added Yasnippets
 - smex is triggered via either M-x, M-z or s-3 (s is CMD on a Mac)
 - dirtree is triggered using s-1
-- Shit-Arrows navigate between frames
+- Shift-Arrows navigate between frames
 - fn is shown as a lambda symbol rather than f
