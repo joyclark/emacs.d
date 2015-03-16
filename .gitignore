@@ -1,4 +1,6 @@
 backup/
+backups/
 .smex-items
 places
 projectile-bookmarks.eld
+elpa/
