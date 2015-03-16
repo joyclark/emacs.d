@@ -16,7 +16,7 @@
                       ;; Clojure & friends
                       clojure-mode
                       cider
-                      cider-tracing
+                     ; cider-tracing
                       rainbow-delimiters
                       midje-mode
                       clojure-cheatsheet
@@ -32,9 +32,12 @@
                       color-theme-solarized
                       windmove
                       company
-                      company-cider
+                     ; company-cider
                       yasnippet
                       ;;icomplete
+
+                      clj-refactor
+                      key-chord
                       )
   "A list of packages to ensure are installed at launch.")
 
